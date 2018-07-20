@@ -1,0 +1,140 @@
+Week 5 Study Guide
+
+Critical Topics from This Week
+
+
+SQLAlchemy
+What is an ORM?
+- object-relational mapping
+- A tool used to manage/convert database data from an object-oriented programming perspective.
+- DB table => Classes
+- DB fields => Attributes
+
+How to define and create new tables in SQLAlchemy
+- class Cat(db.Model):
+    __tablename__ = 'cats'
+    cat_id = db.Column(db.Integer,
+                       primary_key=True,
+                       autoincrement=True)
+    name = db.Column(db.String(50), nullable=False, unique=True)
+
+SQLAlchemy methods to know
+- .filter() : Cat.query.filter(Cat.color == 'grey').all()
+- .filter_by() : Cat.query.filter_by(color='grey').all()
+- .all(), .one(), .first() : Add to a query to fetch records
+
+JOINs in SQLAlchemy
+- .join(other table)
+
+Relationships in SQLAlchemy
+- cat_food = db.relationahiop('CatFood')
+- Allows SQLAlchemy to navigate relationship between 2 databases with a primary/foreign key relationship.
+
+What is the purpose of a backref in SQLAlchemy?
+- Shortcut so you only have to declare one relationship.
+
+
+Data Modeling
+Types of relationships
+- One-to-many: one breed has many cats
+- One-to-one: one cat has one collar
+- Many-to-many: one cat has many toys, and one toy can belong to many cats
+
+Association tables, middle tables
+- Association tables have no meaningful fields. They are simply the glue between two many-to-many tables.
+- Middle tables have meaningful fields.
+
+How to draw data model diagrams
+
+What is data normalization?
+- Make sure data models don't repeat dependencies and that they don't represent multiple data for the same category in columns.
+- Every piece of information lives in exactly one place and relates directly to the key.
+
+What is referential integrity?
+- It ensures the relationships between tables in a database remain accurate by applying constraints to prevent users or apps from entering inaccurate data or pointing to data that doesn't exist.
+- It prevents id from 1st table from being in 2nd table but not in the first, and from deleting 1st table if id is in 2nd table.
+
+
+Debugging
+Debugging tools to know
+- Using pdb
+- The Flask debug toolbar
+- Using Flask error pages (and the console button)
+- Judiciously placed print statements
+- Using raise Exception('Huh?') to see if you got to a particular place
+
+
+Bootstrap
+What is Twitter bootstrap? What is the grid system?
+- 
+
+How can you use the grid system to set sizes for HTML elements depending on whether the screen is a mobile phone, iPad, or monitor/laptop?
+- 
+
+Other boostrap concepts to know
+- Making and customizing a navbar
+- How to integrate bootstrap components like buttons and cards
+- How to override bootstrap styles
+
+
+Web Patterns
+When should you use AJAX? When shouldn’t you use AJAX?
+- USE: check for updates every 30 seconds, infinite scroll, send POST request but stay on page (add to cart but stay on page), get data once page initially loads
+- DON'T USE: intercept form to make sure it's properly filled out (JS), submit a form in JS when something happens (click away)
+
+What are various ways to get data from the front-end of a web app to the back-end? 
+- Using JavaScript?
+- Without using JavaScript? GET and POST
+
+What are various ways to get data from the back-end of a web app to the front-end?
+- Using JavaScript?
+- Without using JavaScript? SQLAlchemy
+
+
+Testing
+Why is testing important?
+- 
+
+Types of tests
+- Unit testing
+- Integration testing
+
+How do you write tests using the unittest module in Python?
+- 
+
+How do you run tests using the unittest module in Python?
+- 
+
+What is a doctest? How do you write them? How do you run them?
+- 
+
+How do you write a Flask integration test that utilizes the session?
+- 
+
+What is the proper way to write a test that needs to create or reads objects from a database?
+- 
+
+Why would you define a setUp or a tearDown method in an integration test class?
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
