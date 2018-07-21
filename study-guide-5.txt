@@ -57,11 +57,11 @@ What is referential integrity?
 
 Debugging
 Debugging tools to know
-- Using pdb
-- The Flask debug toolbar
-- Using Flask error pages (and the console button)
-- Judiciously placed print statements
-- Using raise Exception('Huh?') to see if you got to a particular place
+- Using pdb : must import and place in code, stops code where placed, press "n" for next line. 
+- The Flask debug toolbar : must import, examine what Flask got as the request, sees cookies and sessions, shows which tempalte was used and what parameters were given to it, shows all of the routes, shows why a route took so much time to run.
+- Using Flask error pages (and the console button) : Flask tracebacks, click black box to see more
+- Judiciously placed print statements : print(type(something)) is useful because it formats it like it is really written in a Python script.
+- Using raise Exception('Huh?') to see if you got to a particular place : Raising an exception breaks current code execution and returns the exception back until it is handled.
 
 
 Bootstrap
@@ -93,29 +93,29 @@ What are various ways to get data from the back-end of a web app to the front-en
 
 Testing
 Why is testing important?
-- 
+- #1 thing employers ask about, part of your code base, something ALL engineers do, automating the boring stuff, fascinating and highly skilled art, peace of mind: develop with confidence!
 
 Types of tests
-- Unit testing
-- Integration testing
+- Unit testing - Does this individual component work?
+- Integration testing - Do these parts work together?
 
 How do you write tests using the unittest module in Python?
-- 
+- Testing via classes, as a subclass of TestCase, methods must start with test_
 
 How do you run tests using the unittest module in Python?
-- 
+- unittest.main() runs all cases
 
 What is a doctest? How do you write them? How do you run them?
-- 
+- tests individual functions via the docstring
 
 How do you write a Flask integration test that utilizes the session?
-- 
+- use the Flask secret key to fake a user login: app.config['SECRET_KEY'] = 'key'
 
 What is the proper way to write a test that needs to create or reads objects from a database?
-- 
+- Use sample data in sample database
 
 Why would you define a setUp or a tearDown method in an integration test class?
-- 
+- setUp creates the faux test client and server, and configures for testing. tearDown exits the test client and server (or database).
 
 
 
