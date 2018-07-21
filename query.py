@@ -12,6 +12,7 @@ here, so feel free to refer to classes without the
 """
 
 from model import *
+from sqlalchemy.orm import joinedload
 
 init_app()
 
@@ -22,14 +23,13 @@ init_app()
 
 # 1. What is the datatype of the returned value of
 # ``Brand.query.filter_by(name='Ford')``?
-
+# query
 
 
 # 2. In your own words, what is an association table, and what type of
 # relationship (many to one, many to many, one to one, etc.) does an
 # association table manage?
-
-
+# many to many
 
 
 # -------------------------------------------------------------------
@@ -37,60 +37,65 @@ init_app()
 
 
 # Get the brand with the brand_id of ``ram``.
-q1 = None
+q1 = Brand.query.filter(Brand.brand_id == 'ram').all()
 
 # Get all models with the name ``Corvette`` and the brand_id ``che``.
-q2 = None
+q2 = Model.query.filter(Model.name == 'Corvette').all()
 
 # Get all models that are older than 1960.
-q3 = None
+q3 = Model.query.filter(Model.year < 1960).all()
 
 # Get all brands that were founded after 1920.
-q4 = None
+q4 = Brand.query.filter(Brand.founded > 1920).all()
 
 # Get all models with names that begin with ``Cor``.
-q5 = None
+q5 = Model.query.filter(Model.name.like('Cor%')).all()
 
 # Get all brands that were founded in 1903 and that are not yet discontinued.
-q6 = None
+q6 = Brand.query.filter(Brand.founded == 1903, Brand.discontinued is None).all()
 
 # Get all brands that are either 1) discontinued (at any time) or 2) founded
 # before 1950.
-q7 = None
+q7 = Brand.query.filter((Brand.discontinued is not None) | (Brand.founded < 1950)).all()
 
 # Get all models whose brand_id is not ``for``.
-q8 = None
-
+q8 = Model.query.filter(Model.brand_id != 'for').all()
 
 
 # -------------------------------------------------------------------
 # Part 4: Write Functions
 
-
 def get_model_info(year):
     """Takes in a year and prints out each model name, brand name, and brand
     headquarters for that year using only ONE database query."""
 
-    pass
+    this_year = Model.query.filter(Model.year == 1960).options(joinedload('brands')).all()
+    for item in this_year:
+        print(item.name, item.brands.name, item.brand.headquarters)
 
 
 def get_brands_summary():
     """Prints out each brand name (once) and all of that brand's models,
     including their year, using only ONE database query."""
 
-    pass
+    all_brands = Brand.query.options(joinedload('models')).all()
+    for item in all_brands:
+        print(item.name)
+        for car in item.models:
+            print("-", car.name, car.year)
 
 
 def search_brands_by_name(mystr):
     """Returns all Brand objects corresponding to brands whose names include
     the given string."""
 
-    pass
+    my_brands = Brand.query.filter(Brand.name.like('%mystr%')).all()
+    return my_brands
 
 
 def get_models_between(start_year, end_year):
     """Returns all Model objects corresponding to models made between
     start_year (inclusive) and end_year (exclusive)."""
 
-    pass
-
+    my_models = Model.query.filter(Model.year >= start_year, Model.year <= end_year).all()
+    return my_models

@@ -23,7 +23,7 @@ class Brand(db.Model):
     headquarters = db.Column(db.String(50), nullable=True)
     discontinued = db.Column(db.Integer, nullable=True)
 
-    models = db.relationship('Model', backref=db.backref('ratings'))
+    models = db.relationship('Model', backref=db.backref('brands'))
 
     def __repr__(self):
         """Helpful representation when printing"""
